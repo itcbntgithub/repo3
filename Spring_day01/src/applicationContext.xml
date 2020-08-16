@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    
+    <!-- 
+      Spring最核心最基本的功能就是其是个容器,可以用于配置bean对象和建立bean对象和bean对象的关联关系;
+      bean配置文件就是IOC容器,在bean配置文件中装配bean对象就是在IOC容器中配置bean对象;
+      
+                  配置Student的bean对象:
+      1)使用bean标签配置bean对象;
+        class属性:指定所要配置的bean对象所属类的完整类路径;
+        id属性:指定bean对象的名称,就是对象的引用,称为id引用;
+      2)bean标签的property子标签,是给bean对象的javaBean属性赋值(注入值):
+        name属性:指定javaBean属性名
+        value属性:指定javaBean属性值
+        
+                     原理:
+       Spring拿到javaBean的完整类路径,然后通过反射机制默认是使用其默认无参构造器创建出javaBean对象,
+                      然后再使用javaBean属性的set方法给javaBean属性赋值的;
+     -->
+     <bean id="s1" class="com.my.beans.Student">
+       <property name="sno" value="10102"/>
+       <property name="sname" value="李四"/>
+     </bean>
+     
+     <bean id="s2" class="com.my.beans.Student">
+       <property name="sno" value="10103"/>
+       <property name="sname" value="王五"/>
+     </bean>
+     
+     <!-- 配置dao对象 -->
+     <bean id="stuDao" class="com.my.dao.impls.StudentDaoA"/>
+     <!-- 配置service对象并将dao对象注入给service -->
+     <bean id="stuService" class="com.my.service.StudentService">
+       <property name="studentDao" ref="stuDao"/>
+     </bean>
+     
+</beans>
